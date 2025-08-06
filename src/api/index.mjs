@@ -23,5 +23,16 @@ export const fetchPromises = (tag, searchTerm) => {
 
     return API.get(url);
 };
+export const postPromises= (data) => {
+    let url = '/promises';
+
+
+    return API.post(url, data).then(response => {
+    console.log('Success:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+};
 
 export const fetchTags = () => API.get('/tags');

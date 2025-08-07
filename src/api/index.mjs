@@ -36,3 +36,25 @@ export const postPromises= (data) => {
 };
 
 export const fetchTags = () => API.get('/tags');
+
+export const deletePromise = (id) => {
+    return API.delete(`/promises/${id}`).then(response => {
+        console.log('Successfully deleted:', response.data);
+        return response;
+    })
+    .catch(error => {
+        console.error('Error deleting promise:', error);
+        throw error;
+    });
+};
+
+export const updatePromise = (id, data) => {
+    return API.put(`/promises/${id}`, data).then(response => {
+        console.log('Successfully updated:', response.data);
+        return response;
+    })
+    .catch(error => {
+        console.error('Error updating promise:', error);
+        throw error;
+    });
+};

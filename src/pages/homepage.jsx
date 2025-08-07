@@ -90,7 +90,7 @@ export default function Homepage() {
                         placeholder="Срок исполнения"
                         value={inputs.deadline}
                         onChange={handleInputChange}
-                         />
+                    />
                     <select
                         name="status"
                         value={inputs.status}

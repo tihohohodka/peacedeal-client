@@ -67,7 +67,7 @@ export default function PromisesPage() {
                             <p>Date Given: {new Date(promise.date_given).toLocaleDateString()}</p>
                             <p>Deadline: {new Date(promise.deadline).toLocaleDateString()}</p>
                             <p>Status: {promise.status}</p>
-                            <p>Tags: {promise.tags.join(', ')}</p>
+                            <p>Tags: {promise.tags.map(tag => tag.name).join(', ')}</p>
                             <div className="button-container">
                                 <button 
                                     onClick={() => handleEdit(promise)}

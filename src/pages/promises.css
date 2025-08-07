@@ -18,8 +18,9 @@
     display: flex;
     flex-flow: row wrap;
     gap: 20px;
-    width: 100%;
-    margin-left: 5%;
+    width: 95%;
+    padding-left: 5%;
+    background-color: antiquewhite;
 }
 .promise p {
     font-size: 1em;
@@ -58,4 +59,14 @@
 
 .delete-button:hover {
     background-color: #c82333;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}   
+p{
+    font-size: 1em;
+    color: #666;
+    text-align: center;
 }

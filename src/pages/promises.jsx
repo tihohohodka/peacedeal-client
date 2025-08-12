@@ -1,6 +1,7 @@
 import Header from '../components/header.jsx';
 import { fetchPromises, deletePromise, updatePromise } from '../api/index.mjs';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ChangePopup from './change-popup';
 
 import './promises.css';
@@ -8,6 +9,8 @@ import './promises.css';
 export default function PromisesPage() {
     const [proms, setProms] = useState([]);
     const [editingPromise, setEditingPromise] = useState(null);
+    const navigate = useNavigate();
+    const isAuthenticated = !!localStorage.getItem('token');
     
     const handleEdit = (promise) => {
         setEditingPromise(promise);
@@ -53,9 +56,9 @@ export default function PromisesPage() {
                 });
         }, []);
     return (
-        <div>
+        <div className="app-container">
             <Header />
-            <div>
+            <div className="promises-page">
                 <h1>Promises Page</h1>
                 <p>This is where you can view and manage promises.</p>
                 <div className='promises-list'>
@@ -72,31 +75,26 @@ export default function PromisesPage() {
                                 {promise.status === 'in_progress' && 'В процессе'}
                             </p>
                             <p>Tags: {promise.tags.map(tag => tag.name).join(', ')}</p>
-                            <div className="button-container">
-                                <button 
-                                    onClick={() => handleEdit(promise)}
-                                    className="edit-button"
-                                >
-                                    Edit Promise
-                                </button>
-                                <button 
-                                    onClick={() => handleDelete(promise._id)}
-                                    className="delete-button"
-                                >
-                                    Delete Promise
-                                </button>
-                            </div>
+                            {isAuthenticated && (
+                                <div className="button-container">
+                                    <button 
+                                        onClick={() => handleEdit(promise)}
+                                        className="edit-button"
+                                    >
+                                        Редактировать
+                                    </button>
+                                    <button 
+                                        onClick={() => handleDelete(promise._id)}
+                                        className="delete-button"
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    ))
-                    }
+                    ))}
                 </div>
-                {editingPromise && (
-                    <ChangePopup 
-                        promise={editingPromise}
-                        onClose={() => setEditingPromise(null)}
-                        onSave={handleSave}
-                    />
-                )}
+
             </div>
         </div>
     );

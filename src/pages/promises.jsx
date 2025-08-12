@@ -60,13 +60,17 @@ export default function PromisesPage() {
                 <p>This is where you can view and manage promises.</p>
                 <div className='promises-list'>
                     {proms.map((promise, index) => (
-                        <div key={index} className="promise">
+                        <div key={index} className={`promise promise-${promise.status}`}>
                             <h2>{promise.politician}</h2>
                             <p>{promise.promise_text}</p>
                             <p>Source: <a href={promise.source_url}>{promise.source_url}</a></p>
                             <p>Date Given: {new Date(promise.date_given).toLocaleDateString()}</p>
                             <p>Deadline: {new Date(promise.deadline).toLocaleDateString()}</p>
-                            <p>Status: {promise.status}</p>
+                            <p className="status">
+                                {promise.status === 'fulfilled' && 'Выполнено'}
+                                {promise.status === 'broken' && 'Провалено'}
+                                {promise.status === 'in_progress' && 'В процессе'}
+                            </p>
                             <p>Tags: {promise.tags.map(tag => tag.name).join(', ')}</p>
                             <div className="button-container">
                                 <button 

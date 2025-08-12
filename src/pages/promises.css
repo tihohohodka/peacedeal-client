@@ -9,6 +9,67 @@
     margin: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-width: 250px;
+    border-left: 5px solid #6c757d; /* Default border color */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promise:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Fulfilled promises - green theme */
+.promise-fulfilled {
+    border-left-color: #28a745;
+    background-color: #f8fff9;
+}
+
+.promise-fulfilled h2 {
+    color: #28a745;
+}
+
+/* Broken promises - red theme */
+.promise-broken {
+    border-left-color: #dc3545;
+    background-color: #fff8f8;
+}
+
+.promise-broken h2 {
+    color: #dc3545;
+}
+
+/* In progress promises - blue theme */
+.promise-in_progress {
+    border-left-color: #007bff;
+    background-color: #f8f9ff;
+}
+
+.promise-in_progress h2 {
+    color: #007bff;
+}
+
+/* Status badge */
+.promise p.status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+.promise-fulfilled p.status {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.promise-broken p.status {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.promise-in_progress p.status {
+    background-color: #cce5ff;
+    color: #004085;
 }
 .promise h2 {
     font-size: 1.5em;

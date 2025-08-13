@@ -21,6 +21,7 @@ function Header() {
                 <ul>
                     {isAuthenticated ? (
                         <>
+                            <li><Link to="/">Главная</Link></li>
                             <li><Link to="/creation">Создать</Link></li>
                             <li><Link to="/promises">Обещания</Link></li>
                             <li>
@@ -31,6 +32,7 @@ function Header() {
                         </>
                     ) : (
                         <>
+                            <li><Link to="/">Главная</Link></li>
                             <li><Link to="/promises">Обещания</Link></li>
                             <li>
                                 <button onClick={handleLogin} className="login-button">

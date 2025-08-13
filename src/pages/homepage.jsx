@@ -1,129 +1,74 @@
-import React from 'react';
-import Header from'../components/header.jsx';
-import '../App.css';
-import { fetchTags, postPromises } from '../api/index.mjs';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from '../components/header.jsx';
+import { fetchPromises } from '../api/index.mjs';
+import './homepage.css';
 
 export default function Homepage() {
+    const [upcomingPromises, setUpcomingPromises] = useState([]);
 
-    const [tags, setTags] = useState([]);
-    const [inputs, setInputs] = useState({
-        politician: '',
-        promise_text: '',
-        source_url: '',
-        date_given: '',
-        deadline: '',
-        status: '',
-        tags: []
-    });
     useEffect(() => {
-        fetchTags()
+        fetchPromises()
             .then(response => {
-                console.log('Fetched tags:', response.data);
-                setTags(response.data);
+                // Sort promises by deadline and take first 3
+                const sorted = response.data
+                    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+                    .filter(promise => new Date(promise.deadline) > new Date()) // Only future deadlines
+                    .slice(0, 3);
+                setUpcomingPromises(sorted);
             })
             .catch(error => {
-                console.error('Error fetching tags:', error);
+                console.error('Error fetching promises:', error);
             });
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        if (name === 'tags' && type === 'checkbox') {
-            setInputs(prev => {
-                if (checked) {
-                    // Add tag
-                    return { ...prev, tags: [...prev.tags, value] };
-                } else {
-                    // Remove tag
-                    return { ...prev, tags: prev.tags.filter(tag => tag !== value) };
-                }
-            });
-        } else {
-            setInputs(prev => ({ ...prev, [name]: value }));
-        }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        postPromises(inputs);
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
     };
 
     return (
         <React.StrictMode>
             <Header />
             <div className="homepage">
-                <h2>Welcome to PeaceDeal</h2>
-                <p>Your journey into the depths of memory begins here.</p>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="politician"
-                        placeholder="Политик"
-                        value={inputs.politician}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="text"
-                        name="promise_text"
-                        placeholder="Обещание"
-                        value={inputs.promise_text}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="text"
-                        name="source_url"
-                        placeholder="Источник"
-                        value={inputs.source_url}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="date"
-                        name="date_given"
-                        placeholder="Дата"
-                        value={inputs.date_given}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="date"
-                        name="deadline"
-                        placeholder="Срок исполнения"
-                        value={inputs.deadline}
-                        onChange={handleInputChange}
-                    />
-                    <select
-                        name="status"
-                        value={inputs.status}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Статус</option>
-                        <option value="fulfilled">выполнено</option>
-                        <option value="broken">провалено</option>
-                        <option value="in_progress">в процессе</option>
-                    </select>
-                    <div style={{ margin: '10px 0' }}>
-                        <label>Теги:</label>
-                        {tags && tags.length > 0 ? (
-                            tags.map(tag => (
-                                <div key={tag._id}>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="tags"
-                                            value={tag._id}
-                                            checked={inputs.tags.includes(tag._id)}
-                                            onChange={handleInputChange}
-                                        />
-                                        {tag.name}
-                                    </label>
+                <section className="about-section">
+                    <h1>Добро пожаловать в PeaceDeal</h1>
+                    <p>
+                        PeaceDeal - это уникальная платформа для отслеживания обещаний политиков и общественных деятелей. 
+                        Мы помогаем гражданам быть в курсе того, какие обещания были даны, какие из них выполнены, 
+                        а какие остаются невыполненными.
+                    </p>
+                    <p>
+                        Наша миссия - повышение прозрачности и ответственности в политической сфере через 
+                        документирование и мониторинг публичных обещаний. Присоединяйтесь к нам в создании 
+                        более открытого и ответственного общества.
+                    </p>
+                </section>
+
+                <section className="upcoming-deadlines">
+                    <h2>Ближайшие дедлайны</h2>
+                    <div className="upcoming-promises">
+                        {upcomingPromises.map((promise) => (
+                            <div key={promise._id} className={`promise-card promise-${promise.status}`}>
+                                <h3>{promise.politician}</h3>
+                                <p className="promise-text">{promise.promise_text}</p>
+                                <div className="promise-info">
+                                    <span className="deadline">
+                                        Дедлайн: {formatDate(promise.deadline)}
+                                    </span>
+                                    <span className={`status status-${promise.status}`}>
+                                        {promise.status === 'fulfilled' && 'Выполнено'}
+                                        {promise.status === 'broken' && 'Не выполнено'}
+                                        {promise.status === 'in_progress' && 'В процессе'}
+                                    </span>
                                 </div>
-                            ))
-                        ) : (
-                            <div>Нет доступных тегов</div>
-                        )}
+                            </div>
+                        ))}
                     </div>
-                    <button type="submit">Сохранить</button>
-                </form>
+                </section>
             </div>
         </React.StrictMode>
     )

@@ -1,3 +1,4 @@
+import Homepage from './pages/homepage.jsx';
 import Creation from './pages/creation.jsx';  
 import PromisesPage from './pages/promises.jsx';
 import LoginPage from './pages/login.jsx';
@@ -26,7 +27,7 @@ export default function App() {
             <Creation />
           </ProtectedRoute>
         } />
-        <Route path="/" element={<Navigate to="/promises" replace />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </BrowserRouter>
   );

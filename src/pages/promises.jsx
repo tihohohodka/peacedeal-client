@@ -1,4 +1,5 @@
 import Header from '../components/header.jsx';
+import SearchBar from '../components/SearchBar';
 import { fetchPromises, deletePromise, updatePromise } from '../api/index.mjs';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -59,8 +60,8 @@ export default function PromisesPage() {
         <div className="app-container">
             <Header />
             <div className="promises-page">
-                <h1>Promises Page</h1>
-                <p>This is where you can view and manage promises.</p>
+                <h1>Обещания политиков</h1>
+                <SearchBar />
                 <div className='promises-list'>
                     {proms.map((promise, index) => (
                         <div key={index} className={`promise promise-${promise.status}`}>

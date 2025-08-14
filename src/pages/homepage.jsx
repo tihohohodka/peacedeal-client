@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/header.jsx';
-import PromiseCard from '../components/PromiseCard';
+import HomeIntro from '../components/HomeIntro';
+import UpcomingDeadlines from '../components/UpcomingDeadlines';
 import { fetchPromises } from '../api/index.mjs';
 import './homepage.css';
 
@@ -35,32 +36,11 @@ export default function Homepage() {
         <React.StrictMode>
             <Header />
             <div className="homepage">
-                <section className="about-section">
-                    <h1>Добро пожаловать в PeaceDeal</h1>
-                    <p>
-                        PeaceDeal - это уникальная платформа для отслеживания обещаний политиков и общественных деятелей. 
-                        Мы помогаем гражданам быть в курсе того, какие обещания были даны, какие из них выполнены, 
-                        а какие остаются невыполненными.
-                    </p>
-                    <p>
-                        Наша миссия - повышение прозрачности и ответственности в политической сфере через 
-                        документирование и мониторинг публичных обещаний. Присоединяйтесь к нам в создании 
-                        более открытого и ответственного общества.
-                    </p>
-                </section>
-
-                <section className="upcoming-deadlines">
-                    <h2>Ближайшие дедлайны</h2>
-                    <div className="upcoming-promises">
-                        {upcomingPromises.map((promise) => (
-                            <PromiseCard
-                                key={promise._id}
-                                promise={promise}
-                                formatDate={formatDate}
-                            />
-                        ))}
-                    </div>
-                </section>
+                <HomeIntro />
+                <UpcomingDeadlines 
+                    promises={upcomingPromises}
+                    formatDate={formatDate}
+                />
             </div>
         </React.StrictMode>
     )

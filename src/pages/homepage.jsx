@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/header.jsx';
+import PromiseCard from '../components/PromiseCard';
 import { fetchPromises } from '../api/index.mjs';
 import './homepage.css';
 
@@ -52,20 +53,11 @@ export default function Homepage() {
                     <h2>Ближайшие дедлайны</h2>
                     <div className="upcoming-promises">
                         {upcomingPromises.map((promise) => (
-                            <div key={promise._id} className={`promise-card promise-${promise.status}`}>
-                                <h3>{promise.politician}</h3>
-                                <p className="promise-text">{promise.promise_text}</p>
-                                <div className="promise-info">
-                                    <span className="deadline">
-                                        Дедлайн: {formatDate(promise.deadline)}
-                                    </span>
-                                    <span className={`status status-${promise.status}`}>
-                                        {promise.status === 'fulfilled' && 'Выполнено'}
-                                        {promise.status === 'broken' && 'Не выполнено'}
-                                        {promise.status === 'in_progress' && 'В процессе'}
-                                    </span>
-                                </div>
-                            </div>
+                            <PromiseCard
+                                key={promise._id}
+                                promise={promise}
+                                formatDate={formatDate}
+                            />
                         ))}
                     </div>
                 </section>

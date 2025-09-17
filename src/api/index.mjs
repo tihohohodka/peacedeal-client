@@ -3,7 +3,7 @@ import axios from 'axios';
 const API = axios.create({
   // Указываем базовый URL нашего бэкенда.
   baseURL: 'https://peacedeal-back.onrender.com',
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'

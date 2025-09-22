@@ -1,12 +1,9 @@
 import axios from 'axios';
 
 const API = axios.create({
-  // Указываем базовый URL нашего бэкенда.
-  baseURL: 'https://peacedeal-back.onrender.com',
-  withCredentials: false,
+  baseURL: 'https://peacedeal-back.onrender.com/api',  // добавляем /api префикс
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Content-Type': 'application/json'
   }
 });
 

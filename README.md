@@ -1,8 +1,47 @@
-# Getting Started with Create React App
+# PeaceDeal Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PeaceDeal - это веб-приложение для создания и отслеживания обещаний между людьми. Этот репозиторий содержит клиентскую часть приложения, построенную с использованием React.
 
-## Available Scripts
+## 🚀 Особенности
+
+- 📝 Создание и управление обещаниями
+- 🔍 Поиск обещаний по тегам и ключевым словам
+- 📅 Отслеживание сроков выполнения
+- 👥 Система аутентификации пользователей
+- 🎨 Современный и отзывчивый интерфейс
+
+## 🛠️ Технологии
+
+- React.js
+- React Router для навигации
+- Axios для HTTP-запросов
+- Vite для сборки проекта
+- CSS для стилизации
+
+## 🏃‍♂️ Запуск проекта
+
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/tihohohodka/peacedeal-client.git
+```
+
+2. Установите зависимости:
+```bash
+npm install
+```
+
+3. Запустите проект в режиме разработки:
+```bash
+npm run dev
+```
+
+## 🔗 Связанные проекты
+
+- [PeaceDeal Backend](https://github.com/tihohohodka/peacedeal-back) - Серверная часть приложения
+
+## 📝 Лицензия
+
+MIT
 
 In the project directory, you can run:
 

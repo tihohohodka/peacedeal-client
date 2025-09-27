@@ -14,7 +14,7 @@ https://peacedeal-client.vercel.app/
 
 ## 🛠️ Технологии
 
-- React.js
+- React
 - React Router для навигации
 - Axios для HTTP-запросов
 - Vite для сборки проекта
